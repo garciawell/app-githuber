@@ -3,35 +3,13 @@ import './config/DevToolsConfig';
 import React, { Component } from 'react';
 import createNavigator from '~/routes';
 import { AsyncStorage } from 'react-native';
-import CodePush from 'react-native-code-push';
-import OneSignal from 'react-native-onesignal';
+// console.tron.log('Hello WOrlds');
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    OneSignal.init('d6562eb1-eec6-4af5-ac5d-64d983501e38');
-    OneSignal.addEventListener('received', this.onReceived);
-    OneSignal.addEventListener('opened', this.onOpened);
-    OneSignal.addEventListener('ids', this.onIds);
-  }
-
+export default class App extends Component {
   state = {
     userChecked: false,
     userLogged: false,
   };
-
-  componentWillUnmount() {
-    OneSignal.removeEventListener('received', this.onReceived);
-    OneSignal.removeEventListener('opened', this.onOpened);
-    OneSignal.removeEventListener('ids', this.onIds);
-  }
-
-  onReceived = (data) => {};
-
-  onOpened = (notification) => {};
-
-  onIds = (id) => {};
 
   async componentDidMount() {
     const username = await AsyncStorage.getItem('@Gihuber:username');
@@ -51,7 +29,3 @@ class App extends Component {
     return <Routes />;
   }
 }
-
-export default CodePush({
-  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
-})(App);
